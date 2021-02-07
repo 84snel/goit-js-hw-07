@@ -16,13 +16,14 @@ const images = [
   },
 ];
 
-const string = images.reduce((acc, { url }, { alt }) => {
-  acc += `<li><img src ="${url}", alt="${alt}"></li>`;
+const string = images.reduce((acc, { url, alt }) => {
+  acc += `<li><img src ="${url}", alt ="${alt}"></li>`;
+  console.log(acc);
   return acc;
 }, '');
 
 const galleryRef = document.getElementById('gallery');
-galleryRef.insertAdjacentHTML('afterbegin', string);
+galleryRef.insertAdjacentHTML('beforeend', string);
 
 galleryRef.classList.add('gallery');
 const classForItem = [...galleryRef.children].forEach(element => {

@@ -7,25 +7,57 @@ const btnDestroyRef = document.querySelector(
   'div#controls > button[data-action = "destroy"]',
 );
 
-const boxesRef = document.querySelector('div#boxes');
-
 controlsRef.addEventListener('click', event => {
+  const boxesRef = document.querySelector('div#boxes');
   if (event.target.dataset.action === 'render') {
     console.log('create');
-    createBoxes(inputRef.value);
+    createBoxes(inputRef.value, boxesRef);
   }
   if (event.target.dataset.action === 'destroy') {
     console.log('destroy');
-    destroyBoxes();
+    destroyBoxes(boxesRef);
   }
-  console.log(inputRef.value);
+  // console.log(inputRef.value);
 });
 
-function createBoxes(amount) {}
+function createBoxes(amount, boxesRef) {
+  let items = [];
+  for (let i = 0; i < amount; i++) {
+    items[i] = document.createElement('div');
+  }
+  console.log(items);
 
-function destroyBoxes() {}
+  boxesRef.append(...items);
 
-// console.dir(controlsRef);
-// console.dir(inputRef);
-// console.dir(btnRenderRef);
-// console.dir(btnDestroyRef);
+  decorItems(boxesRef);
+}
+
+function destroyBoxes(boxesRef) {
+  const boxesRefClone = boxesRef.cloneNode(false);
+  boxesRef.replaceWith(boxesRefClone);
+}
+
+function decorItems(boxesRef) {
+  let size = 0;
+  let color;
+
+  Array.from(boxesRef.children).map(div => {
+    size = getSize(size);
+    color = getColor();
+    div.style.width = `${size}px`;
+    div.style.height = `${size}px`;
+    div.style.backgroundColor = `rgb(${color})`;
+    div.style.marginTop = '10px';
+  });
+}
+
+const getSize = size => (size === 0 ? (size = 30) : (size += 10));
+
+const getColor = () => {
+  let rgb = Array.from(
+    { length: 3 },
+    (v, k) => Math.floor(Math.random() * (255 - 0 + 1)) + 0,
+  );
+  console.log(rgb);
+  return rgb.join();
+};
