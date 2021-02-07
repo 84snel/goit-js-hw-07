@@ -25,7 +25,6 @@ function createBoxes(amount, boxesRef) {
   for (let i = 0; i < amount; i++) {
     items[i] = document.createElement('div');
   }
-  console.log(items);
 
   boxesRef.append(...items);
 
@@ -58,6 +57,5 @@ const getColor = () => {
     { length: 3 },
     (v, k) => Math.floor(Math.random() * (255 - 0 + 1)) + 0,
   );
-  console.log(rgb);
   return rgb.join();
 };
